@@ -45,6 +45,21 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+@app.route('/user/task/username/<int:theid>', methods=['PUT'])
+def update_task(theid=None):
+    task= request.json
+    if task('label') is None:
+        return jsonify({"Menssage:wrong property"}), 400 
+    if task ('done') is None:
+        return jsonify({"Menssage:wrong property"}), 400
+    user = User.query.get(theid)
+    if user is None:
+        return jsonify({"Message:user not found"}), 404
+    
+    print(update_task)
+    return jsonify([], 200)    
+
+
 @app.route("/user/<int:theid>", methods=["DELETE"])
 def delete_user(theid=None):
     user = User.query.get(theid)
