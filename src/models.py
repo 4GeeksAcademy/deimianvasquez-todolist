@@ -10,6 +10,21 @@ class User(db.Model):
 
     def serialize(self):
         return {
+             "id": self.id,
+             "email": self.email,
+             # do not serialize the password, its a security breach
+         }
+
+class Todo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    label = db.Column(db.String(80), nullable=False, unique=True)
+    done = db.Column(db.Boolean(), nullable=False, unique=True)
+    user_id = db.Column(db.Integer, db.ForeingKey("user.id"))
+
+    def serialize(self):
+        return{
             "id": self.id,
-            "username": self.username,
+            "label": self.label,
+            "done": self.done,
         }
+
