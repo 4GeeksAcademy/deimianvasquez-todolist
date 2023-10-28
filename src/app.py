@@ -59,19 +59,25 @@ def update_task(theid=None):
     return jsonify([], 200)    
 
 
+@app.route("/user/<int:theid>", methods=["DELETE"])
+def delete_user(theid=None):
+    user = User.query.get(theid)
+
+    if user is None:
+        return jsonify({"message": "User not found"}), 404
+    else:
+        db.session.delete(user)
+
+        try:
+            db.session.commit()
+            return jsonify({"message": "User deleted successfully"}), 204
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"message": f"error: {error}"})
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
     app.run(host='0.0.0.0', port=PORT, debug=False)
 
 
-@app.route('/todos/<str:username>', methods=['GET'])
-def get_user_todos(username):
-    if username is None:
-        return jsonify({"message": "user not found"}), 404
-    todos =  Todo()
-    todos = todos.query.get(username)
-    if todos is None:
-        return jsonify({"message": "there are no todos here"}), 404
-    return jsonify(todos.serialize()), 200
-    
