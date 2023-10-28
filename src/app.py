@@ -45,6 +45,22 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+@app.route("/user/<int:theid>", methods=["DELETE"])
+def delete_user(theid=None):
+    person = Person.query.get(theid)
+
+    if person is None:
+        return jsonify({"message": "User not found"}), 404
+    else:
+        db.session.delete(person)
+
+        try:
+            db.session.commit()
+            return jsonify({"message": "User deleted successfully"}), 204
+        except Exception as error:
+            db.session.rollback()
+            return jsonify({"message": f"error: {error}"})
+
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
