@@ -47,12 +47,12 @@ def handle_hello():
 
 @app.route("/user/<int:theid>", methods=["DELETE"])
 def delete_user(theid=None):
-    person = Person.query.get(theid)
+    user = User.query.get(theid)
 
-    if person is None:
+    if user is None:
         return jsonify({"message": "User not found"}), 404
     else:
-        db.session.delete(person)
+        db.session.delete(user)
 
         try:
             db.session.commit()
