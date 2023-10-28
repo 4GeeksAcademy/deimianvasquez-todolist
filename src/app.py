@@ -49,3 +49,15 @@ def handle_hello():
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
     app.run(host='0.0.0.0', port=PORT, debug=False)
+
+
+@app.route('/todos/<str:username>', methods=['GET'])
+def get_user_todos(username):
+    if username is None:
+        return jsonify({"message": "user not found"}), 404
+    todos =  Todo()
+    todos = todos.query.get(username)
+    if todos is None:
+        return jsonify({"message": "there are no todos here"}), 404
+    return jsonify(todos.serialize()), 200
+    
