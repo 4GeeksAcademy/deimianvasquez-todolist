@@ -45,12 +45,13 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-@app.route('user/task/username/<int:theid>', method=['PUT'])
+@app.route('/user/task/username/<int:theid>', methods=['PUT'])
 def update_task(theid=None):
-    task= request.json.get  
-    # o request.query.get
-    if task('task') is None:
+    task= request.json
+    if task('label') is None:
         return jsonify({"Menssage:wrong property"}), 400 
+    if task ('done') is None:
+        return jsonify({"Menssage:wrong property"}), 400
     user = User.query.get(theid)
     if user is None:
         return jsonify({"Message:user not found"}), 404
