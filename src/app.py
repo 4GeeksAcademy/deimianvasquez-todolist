@@ -47,16 +47,16 @@ def handle_hello():
 
 @app.route('user/task/username/<int:theid>', method=['PUT'])
 def update_task(theid=None):
-    task= request.json.get
+    task= request.json.get  
+    # o request.query.get
     if task('task') is None:
-        return jsonify({"menssage:wrong property"}), 400 
+        return jsonify({"Menssage:wrong property"}), 400 
     user = User.query.get(theid)
     if user is None:
-        return jsonify({"message:user not found"}), 404
+        return jsonify({"Message:user not found"}), 404
     
     print(update_task)
-    return jsonify([], 200)
-    
+    return jsonify([], 200)    
 
 
 # this only runs if `$ python src/app.py` is executed
