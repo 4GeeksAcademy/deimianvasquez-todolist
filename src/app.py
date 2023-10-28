@@ -8,7 +8,7 @@ from flask_swagger import swagger
 from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
-from models import db, User
+from models import db
 #from models import Person
 
 app = Flask(__name__)
@@ -45,10 +45,6 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
-# this only runs if `$ python src/app.py` is executed
-if __name__ == '__main__':
-    PORT = int(os.environ.get('PORT', 3000))
-    app.run(host='0.0.0.0', port=PORT, debug=False)
 
 
 @app.route('/todos/<str:username>', methods=['GET'])
@@ -60,4 +56,14 @@ def get_user_todos(username):
     if todos is None:
         return jsonify({"message": "there are no todos here"}), 404
     return jsonify(todos.serialize()), 200
+
+
+
+# this only runs if `$ python src/app.py` is executed
+if __name__ == '__main__':
+    PORT = int(os.environ.get('PORT', 3000))
+    app.run(host='0.0.0.0', port=PORT, debug=False)
+
+
+
     
