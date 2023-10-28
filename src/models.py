@@ -19,7 +19,7 @@ class Todo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     label = db.Column(db.String(80), nullable=False, unique=True)
     done = db.Column(db.Boolean(), nullable=False, unique=True)
-    user_id = db.Column(db.Integer, db.ForeingKey("user.id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
     def serialize(self):
         return{
