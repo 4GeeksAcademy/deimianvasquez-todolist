@@ -45,7 +45,7 @@
 
 
 # 5.- /user/<theid> --> GET
-# responde un usuario por el id
+# responde un usuario por el idgit 
 # Naoli Zuñiga
 
 
